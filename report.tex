@@ -1,0 +1,112 @@
+\documentclass[a4paper,11pt]{article}
+\usepackage[utf8]{inputenc}
+\usepackage[T1]{fontenc}
+\usepackage[english]{babel}
+\usepackage{amsfonts}
+\usepackage{graphicx}
+\usepackage{ae}
+\usepackage{fancyheadings}
+
+\newcommand{\intf}{\raisebox{0.2mm}{\hspace{-5mm}$\rhd$\hspace{2mm}}}
+
+\pagestyle{fancy}
+
+\lhead{{\sc Dagand} \& {\sc Jezequel}}
+\chead{PAP}
+\rhead{Report: SybilGuard}
+
+\begin{document}
+
+\begin{center} 
+  {\Large PAP \\ Report SybilGuard}\\
+  Pierre-Evariste {\sc Dagand} \\
+  Loïg {\sc Jezequel}
+\end{center}
+
+\section*{Introduction}
+
+%% Sybil Attack
+%%   - State its definition
+%%   - Practical interest of canceling the Sybil Attacks
+
+%% Impossibility Result
+%%   - State the result: Douceur [IPTPS'02]
+%%   - Consequence: to avoid Sybil Attacks, we must use a Central authority
+%%   - Consequence: OR we should solve a weaker problem
+
+%% SybilGuard trade-off
+%%   - Solve a weaker problem: (very briefly) describe the problem solved
+%%   - Still, useful: attenuate its supposed weaknesses
+%%   - Demonstrate some uses: give example of what can be done with the guarantees it provides
+
+%% Our plan
+%%   - Present our plan
+%%   - Particularity: the experimental results are mentioned along the text, 
+%%                    to highlight the practical value of this system
+
+\section{Design Rationale}
+
+%% Social Network
+%%   - based on human, strong trust relationship
+%%   - particular quotient cut of ``normal'' social networks
+%%   - definition of ``attack edges''
+%%   - ``fast mixing'' property of social networks 
+%%      - definition 
+%%      - implication for the theoretical study
+
+%% Random route
+%%   - Principle (to compare with random walk)
+%%   - ``Good'' length of a random walk
+%%       - What is ``Good''
+%%       - Theoretical results, at least in the case of a Social Network
+%%   - Loops
+%%       - Where do they appear
+%%       - What is there impact (reduce efficiency, not soundness)
+%%       - Experimental result: Section 6.1 paragraph 1
+
+%% Guarantees provided by SybilGuard
+%%   - Bound the number of Sybil groups
+%%   - Bound the size of Sybil groups  
+%%       - Experimental result: Section 6.2 paragraph 1
+%%   - Accept honest nodes with hight probability
+%%       - Experimental result: Section 6.1 paragraph 2, Section 6.2 paragraph 2
+
+\section{Distributed Algorithm}
+
+%% Protocol Overview
+
+%% Data-Structures
+%%   - Registry table
+%%   - Witness table
+%%   - Scalability considerations
+%%      - Number of entries
+%%      - Memory footprint
+
+%% Determining the length of random routes
+%%   - Principle
+%%   - Experimental result: Section 6.1 paragraph 3, Section 6.2 paragraph 3
+
+
+\section{Dealing with Dynamic Networks}
+
+%% Routing tables maintenance
+%%    - Algorithms for adding/deleting an edge
+%%    - Generalization to adding/deleting a node
+%%    - Can take days to complete, there is no hurry: work at the social level
+
+%% Dealing with Offline nodes
+%%    - State the cases where a communication is required
+%%    - For each case, give the insight that a majority voting on a redundant random routing solve the problem
+%%    - Describe the redundancy routing principle: Section 4.4
+%%      - Mention that it also avoids attacks exploiting dynamism
+%%      - Mention that it also helps nodes close to a Sybil zone
+
+\section{Conclusion}
+
+%% Scalable solution to fight Sybil attacks
+
+%% Based on theoretical results
+
+%% Lack of real-life deployment
+
+\end{document}
