@@ -29,6 +29,11 @@
 %%   - State its definition
 %%   - Practical interest of canceling the Sybil Attacks
 
+In peer-to-peer systems (and more generally in large distributed systems) a \emph{sybil attack} is a situation where a malicious user obtains multiple identities associated with multiples different nodes of the system.
+Most byzantine failure tolerant protocols assume that no more than $1/3$ of the nodes are byzantine.
+So, if a sybil attackant can control a large part of the system (more than $1/3$ of the nodes), he is able to break all defenses against byzantine failures.
+Hence, providing efficient defenses against sybil attacks will improve possibilities of collaborative tasks based on voting schemes on peer-to-peer systems.
+
 %% Impossibility Result
 %%   - State the result: Douceur [IPTPS'02]
 %%   - Consequence: to avoid Sybil Attacks, we must use a Central authority
