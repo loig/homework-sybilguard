@@ -40,12 +40,17 @@ Hence, providing efficient defenses against sybil attacks will improve possibili
 %%   - Consequence: OR we should solve a weaker problem
 
 In~\cite{douceur} an important result is prooved: without a central (and trusted) authority responsible for checking that a one-to-one correspondance between users and identities exists, one can always have multiple identities.
-That is why \emph{SybilGuard} proposes to solve a weaker problem.
+That is why \emph{SybilGuard}, which is a fully decentralized solution, proposes to solve a weaker problem.
 
 %% SybilGuard trade-off
 %%   - Solve a weaker problem: (very briefly) describe the problem solved
 %%   - Still, useful: attenuate its supposed weaknesses
 %%   - Demonstrate some uses: give example of what can be done with the guarantees it provides
+
+Instead of totally avoid sybil identities SybilGuard suggests to bound the number of sybil groups (i.e. groups, defined by an equivalence relation, which contains sybil identities) and the size of these groups.
+In fact even if SybilGuard does not fully prevent against sybil attacks it is sufficiently strong to be useful.
+For example, in order to maintain replicas of a file, ensure that at most $g$ sybil groups exist allows to provide only $g+1$ replicas (to ensure that at most one is not on a sybil node).
+Moreover having a bounded number of sybil nodes, smaller than the total number of nodes, ensures that, by randomly assign the replicas, the probability of having a majority of replicas on honest nodes will grow exponentially with the number of replicas.
 
 %% Our plan
 %%   - Present our plan
