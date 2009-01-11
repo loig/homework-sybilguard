@@ -143,12 +143,33 @@ One can notice that it doesn't mean that some honest nodes will not be accepted 
 
 %% Protocol Overview
 
+The idea of SybilGuard protocol is to perform random routes in a fully decentralized way and to verify their intersection using two data-structures, the registry table and the witness table, that each node need to maintains.
+Each node $V$ of degree $d$ has to perform $d$ random routes of lenght $w$ and will accept another node $S$ if at least a half of the routes of $V$ intersect with routes of $S$.  
+
 %% Data-Structures
 %%   - Registry table
 %%   - Witness table
 %%   - Scalability considerations
 %%      - Number of entries
 %%      - Memory footprint
+
+The two data-structures involved in SybilGuard allow $V$ to be sure that $S$ doesn't give him false informations.
+Indeed $V$ will check if $S$ witness tables (which give the random routes of $S$) are consistant with their intersections registry tables (which give the random routes arriving to these intersections).
+
+Each node $N$ thus maintain a registry table for each of its edges, $e$. 
+The $i^{th}$ entry of this table contains the identity of the node which route has $i^{th}$ hop arriving to $N$ by $e$.
+
+Each node also maintain a witness table for each of its edges $e$.
+The $i^{th}$ entry of this table contains the identity of the node encountered at $i^{th}$ hop on the random route along $e$.
+
+These tables are constructed only by sending them to one hop neighbours.
+Moreover, in fact, these tables does not really contains nodes identities but public keys (and also IP for witness table) in order to prevent against identity steals.
+
+Maintaining these tables is not so expensive.
+For registry table, with a one million nodes network, a random routes length of 2000, and using 1024-bit keys, the size will be roughly 256KB.
+Hence, a node with 10 neighbours will have to send 2.56MB of data.
+Moreover it is possible to hash public keys, and in this case the total data sent by this node could decrease to 400MB.
+
 
 %% Determining the length of random routes
 %%   - Principle
@@ -169,7 +190,7 @@ One can notice that it doesn't mean that some honest nodes will not be accepted 
 %%      - Mention that it also avoids attacks exploiting dynamism
 %%      - Mention that it also helps nodes close to a Sybil zone
 
-\section{Conclusion}
+\section*{Conclusion}
 
 %% Scalable solution to fight Sybil attacks
 
