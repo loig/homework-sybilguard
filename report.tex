@@ -57,6 +57,12 @@ Moreover having a bounded number of sybil nodes, smaller than the total number o
 %%   - Particularity: the experimental results are mentioned along the text, 
 %%                    to highlight the practical value of this system
 
+network (1): one million nodes, average node degree 24,
+
+network (2): 10000 nodes, average node degree 24, 
+
+network (3): 100 nodes, average node degree 12.
+
 \section{Design Rationale}
 
 %% Social Network
@@ -95,7 +101,12 @@ Because SybilGuard is based on intersection between random routes it is necessar
 Some analytical results show that a length of $O(\sqrt{n} \log n)$ for random walks ensure the above requirements. 
 These results are for random walks but can be extended to random routes.
 
- 
+Random routes can also have loops.
+The first thing we can notice is that a loop can only appar at the start point of a random route (because of the properties of random routes).
+Moreover such a loop involves at least three hops.
+One can also notice that if $d$ is the smallest degree in the graph a three hops loop is formed with probability at most $1/d^2$ and a bigger loop has less probability to be formed.
+The problem with loops is that they reduce the probability for a random route to intersect with many other random routes. 
+Experimental results seems to confirm that there is really few random routes which are loops: in network (1) $99,3\%$ of the 2500 hops routes does not loop, in network (2) $99,7\%$ of the 200 hops routes does not loop, and in network (3) $90\%$ of the 50 hops routes does not loop.
 
 
 %% Guarantees provided by SybilGuard
