@@ -213,9 +213,53 @@
   \begin{block}{Register Table}
     \begin{itemize}
     \item Details about the $d \times w$ nodes in \emph{upward} routes
-    \item To verify the source of a route
+    \item To verify the source of a routen
     \item Contain a shared secret
     \end{itemize}
+  \end{block}
+
+\end{frame}
+
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+
+\begin{frame}
+
+  \frametitle{Witness Table}
+
+  \begin{figure}
+    \begin{columns}
+      \begin{column}{5cm}
+	\includegraphics[width=5cm]{./pictures/witness_table} 
+      \end{column}
+      \begin{column}{5cm}
+	\begin{tabular}{|c|c|c|}
+	  \hline
+	  Edge     &  Depth     &  Info \\
+	  \hline
+	  \hline
+	  $e_1$    &  1         &  $(n_1, k_1)$ \\
+	  %\hline
+	           &  2         &  $(n_2, k_2)$ \\
+	  %\hline
+	           &  \ldots    &  \ldots       \\
+	  \hline
+	  \hline
+	  $e_2$    &  1         &  $(n_3, k_3)$ \\
+	  %\hline
+	           & \ldots     &  \ldots       \\
+	  \hline
+	\end{tabular}
+      \end{column}
+    \end{columns}
+    \caption{Witness table}
+  \end{figure}
+
+  \begin{block}{Scalability}
+    \begin{description}
+    \item[Space usage:] $O( |k| \times d \times w )$ (real life: 2.56MB)
+    \item[Bootstrap:] By propagation along the routes
+    \item[Maintainance:] Lazily, with IP address changes
+    \end{description}
   \end{block}
 
 \end{frame}
