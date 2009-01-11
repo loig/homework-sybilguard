@@ -67,6 +67,16 @@ Moreover having a bounded number of sybil nodes, smaller than the total number o
 %%      - definition 
 %%      - implication for the theoretical study
 
+SybilGuard is based on a social network, that is a graph where the topology is constructed from human-established trust relations: there is an edge between two entities if and only if they know eachother (e.g. they have friendship relations in real life).
+
+Generally social networks have  big \emph{quotient cut}: a large number of nodes can not be disconnected from the rest of the graph by removing a small number of edges.
+In presence of many sybil nodes the quotient cut of such a network becomes small: a small set of edges (called \emph{attack edges}) disconnect a large part of the graph (the sybil nodes) from the rest of it when removed.
+
+Moreover, social networks ensure a property called \emph{fast mixing}: after a small number of hops on a random walk ($O(\log n)$ hops) the walk becomes roughly independent from its starting point.
+
+These two properties of social networks are the basements of SybilGuard.
+
+
 %% Random route
 %%   - Principle (to compare with random walk)
 %%   - ``Good'' length of a random walk
