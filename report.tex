@@ -170,10 +170,22 @@ For registry table, with a one million nodes network, a random routes length of 
 Hence, a node with 10 neighbours will have to send 2.56MB of data.
 Moreover it is possible to hash public keys, and in this case the total data sent by this node could decrease to 400MB.
 
-
 %% Determining the length of random routes
 %%   - Principle
 %%   - Experimental result: Section 6.1 paragraph 3, Section 6.2 paragraph 3
+
+SybilGuard is fully decentralized, thus, each node $A$ has to determine locally the length of its random routes.
+To do that the principle is very simple: $A$ performs a short random walk (not a random route), i.e. $\geq 3$ hops, ending at the node $B$ (which is probably not a sybil node because the random walk is short).
+Then $A$ perform a random route, as $B$ does, in order to determine how long these routes need to be to intersect.
+After having obtained multiple such samples, $A$ computes the median $m$ of these and takes $2,1m$ as the length of its random routes (the constant 2.1 was obtained analiticaly).
+
+Some experiments were done to check if this way of determining random routes length was efficient.
+The protocole is simple: first $B$ was choosen uniformly random and a theorical length was computed, then $B$ was choosen using the method described above and the lenght obtained was compared with the theorical one.
+In the case where no sybil attackers exist, in network (1), using 30 samples the diffence with the theorical length was at most 300 hops (for a theorical length of 1906 hops) and using 100 samples the difference was at moste 150 hops.
+In network (2), for a theorical length of 197 hops, the difference was at most 30 hops, using 35 samples.
+In network (3), for a theorical length of 24 hops, the difference was at most 7 hops, using 40 samples.  
+Then in presence of sybil attackers the probability for sample to be potentially influenced by the adversary (i.e. any of the two random routes enter in the sybil region) was studied.
+In network (1), with 2500 attack edges, this probability is under $20\%$, as in networks (2) and (3) with 204 and 11 attack edges.
 
 
 \section{Dealing with Dynamic Networks}
