@@ -190,10 +190,21 @@ In network (1), with 2500 attack edges, this probability is under $20\%$, as in 
 
 \section{Dealing with Dynamic Networks}
 
+In fact, SybilGuard as presented above does not deals with dynamicity. 
+In this section we explain how it is done.
+
 %% Routing tables maintenance
 %%    - Algorithms for adding/deleting an edge
 %%    - Generalization to adding/deleting a node
 %%    - Can take days to complete, there is no hurry: work at the social level
+
+A typical action in dynamic networks is to add or delete an edge.
+Deleting an edge in the social network involved in SybilGuard is not doing efficiently if it induce a modification of a lot of witness and registry tables.
+That is why the routing table of a node $A$ which gains or looses an edge has to be modified carefuly.
+The solution proposed is, when edge $d+1$ is added to $A$ of degree $d$, to choose randomly an edge $k$ between 1 and $d+1$ and to replace the initial routing table [$x_1,x_2,\dots, x_d$] (represented as a permutation) by the new routing table [$x_1,x_2,\dots x_{k-1},d+1,x_{k+1},\dots, x_d, x_k$] if $k\neq d+1$ or else by the new routing table [$x_1,x_2,\dots ,x_d,d+1$].
+When edge $d+1$ is deleted from $A$ of degree $d+1$ and such that $x_k=d+1$ the routing table becomes [$x_1,x_2,\dots, x_d$] if $k=d+1$ and else [$x_1,x_2,\dots, x_{k-1}, x_{d+1}, x_{k+1},\dots x_d$].
+
+Once one can add and delete edges he can also add and delete nodes, just by adding or deleting one by one the edges involving these nodes.
 
 %% Dealing with Offline nodes
 %%    - State the cases where a communication is required
