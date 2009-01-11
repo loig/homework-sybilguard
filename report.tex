@@ -89,8 +89,13 @@ In particular it means that in a social network two random walks starting from t
 \paragraph{}
 In order to be able to exploit the two properties defined above, SybilGuard uses the concept of \emph{random routes}.
 Random routes are walk in the graph based on random routing tables: at the begining each node computes his routing table (which is a random permutation of his edges) and then these routing tables are used to computes the random routes.
-In fact if a node initiates a walk $w$ by a given edge with a fixed length then all walk initiaded by the same node with the same edge will be exactly $w$.
+In fact if a node initiates a walk $w$ by a given edge with a fixed length then all walk initiaded by the same node with the same edge and the same length will be exactly $w$.
 
+Because SybilGuard is based on intersection between random routes it is necessary to define the optimal length of these walks: not to short (a random routes has to intersect with a sufficient number of other random routes to ensure each node to accept a sufficient number of nodes) and not to long (if a random route goes into the sybil part of the network then a node will accept a huge number of sybil nodes).
+Some analytical results show that a length of $O(\sqrt{n} \log n)$ for random walks ensure the above requirements. 
+These results are for random walks but can be extended to random routes.
+
+ 
 
 
 %% Guarantees provided by SybilGuard
