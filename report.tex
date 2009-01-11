@@ -68,14 +68,13 @@ Moreover having a bounded number of sybil nodes, smaller than the total number o
 %%      - implication for the theoretical study
 
 SybilGuard is based on a social network, that is a graph where the topology is constructed from human-established trust relations: there is an edge between two entities if and only if they know eachother (e.g. they have friendship relations in real life).
+The principe of SybilGuard is to let a node $V$ accept a node $S$ if and only if a random walk from $V$ in the social network intersects with a random walk from $S$.
 
 Generally social networks have  big \emph{quotient cut}: a large number of nodes can not be disconnected from the rest of the graph by removing a small number of edges.
 In presence of many sybil nodes the quotient cut of such a network becomes small: a small set of edges (called \emph{attack edges}) disconnect a large part of the graph (the sybil nodes) from the rest of it when removed.
 
 Moreover, social networks ensure a property called \emph{fast mixing}: after a small number of hops on a random walk ($O(\log n)$ hops) the walk becomes roughly independent from its starting point.
-
-These two properties of social networks are the basements of SybilGuard.
-
+In particular it means that in a social network two random walks starting from two different nodes have high probability to instersect eachother after a small number of hops.
 
 %% Random route
 %%   - Principle (to compare with random walk)
@@ -87,12 +86,29 @@ These two properties of social networks are the basements of SybilGuard.
 %%       - What is there impact (reduce efficiency, not soundness)
 %%       - Experimental result: Section 6.1 paragraph 1
 
+\paragraph{}
+In order to be able to exploit the two properties defined above, SybilGuard uses the concept of \emph{random routes}.
+Random routes are walk in the graph based on random routing tables: at the begining each node computes his routing table (which is a random permutation of his edges) and then these routing tables are used to computes the random routes.
+In fact if a node initiates a walk $w$ by a given edge with a fixed length then all walk initiaded by the same node with the same edge will be exactly $w$.
+
+
+
 %% Guarantees provided by SybilGuard
 %%   - Bound the number of Sybil groups
 %%   - Bound the size of Sybil groups  
 %%       - Experimental result: Section 6.2 paragraph 1
 %%   - Accept honest nodes with hight probability
 %%       - Experimental result: Section 6.1 paragraph 2, Section 6.2 paragraph 2
+
+\paragraph{}
+Using the concept of random routes and the properties of social networks, SybilGuard provides some properties of practical interest.
+
+SybilGuard allows the number of sybil groups to be bounded by the number of attack edges.
+This is ensured by the properties of random routes: if two routes share an edge then they share all there edges after it.
+Because there is a bounded number $g$ of attack edges, the random routes starting at sybil nodes can only follow $g$ different paths in the honest part of the social network.
+Thus, SybilGuard will let node $V$ put in the same group all the nodes which random route intersect the random route of $V$ at the same node and coming from the same edge.
+Finally, for $V$, there will be at most $g$ groups of accepted nodes which can contain sybil nodes. 
+
 
 \section{Distributed Algorithm}
 
