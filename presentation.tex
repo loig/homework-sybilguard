@@ -139,9 +139,62 @@
     \end{description}
   \end{block}
 
+\end{frame}
+
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+
+\begin{frame}
+
+  \frametitle{Accepting an honest node}
+
+  \begin{figure}
+    \includegraphics[width=7cm]{./pictures/verify_honest} 
+    \caption{Verifying an Honest node}
+  \end{figure}
 
 \end{frame}
 
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+
+\begin{frame}
+
+  \frametitle{Bounding the number of Sybil groups}
+
+  \begin{figure}
+    \includegraphics[width=7cm]{./pictures/bound_group} 
+    \caption{Bounding the number of Sybil groups}
+  \end{figure}
+
+  \begin{block}{Case: Single Attack Edge}
+    \begin{itemize}
+    \item[] All Sybil nodes \emph{have} to go through $e_1$
+    \item[$\Rightarrow$] All their routes \emph{have} to intersect the same node %% Convergence
+    \item[$\Rightarrow$] Same group (from Verifier's point of view)
+    \end{itemize}
+  \end{block}
+
+\end{frame}
+
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+
+\begin{frame}
+
+  \frametitle{Bounding the number of Sybil nodes}
+
+  \begin{figure}
+    \includegraphics[width=7cm]{./pictures/bound_nodes} 
+    \caption{Routes of length 3 sharing an edge}
+  \end{figure}
+  
+  \begin{block}{For an Attack Edge $e_1$}
+    \begin{itemize}
+      \item[] All Sybil nodes \emph{have} to go through $e_1$
+      \item[$\Rightarrow$] At most $w$ routes before the intersection node %% Back-traceability
+      \item[$\Rightarrow$] At most $w$ Sybil nodes by Group
+    \end{itemize}
+  \end{block}
+
+\end{frame}
 
 %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
 
