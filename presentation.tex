@@ -232,14 +232,15 @@
 	\includegraphics[width=5cm]{./pictures/witness_table} 
       \end{column}
       \begin{column}{5cm}
+	\begin{center}
 	\begin{tabular}{|c|c|c|}
 	  \hline
 	  Edge     &  Depth     &  Info \\
 	  \hline
 	  \hline
-	  $e_1$    &  1         &  $(n_1, k_1)$ \\
+	  $e_1$    &  1         &  $(n_2, k_2)$ \\
 	  %\hline
-	           &  2         &  $(n_2, k_2)$ \\
+	           &  2         &  $(n_4, k_4)$ \\
 	  %\hline
 	           &  \ldots    &  \ldots       \\
 	  \hline
@@ -249,6 +250,7 @@
 	           & \ldots     &  \ldots       \\
 	  \hline
 	\end{tabular}
+	\end{center}
       \end{column}
     \end{columns}
     \caption{Witness table}
@@ -264,6 +266,51 @@
 
 \end{frame}
 
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+
+\begin{frame}
+
+  \frametitle{Register Table}
+
+  \begin{figure}
+    \begin{columns}
+      \begin{column}{5cm}
+	\includegraphics[width=5cm]{./pictures/register_table} 
+      \end{column}
+      \begin{column}{5cm}
+	\begin{center}
+	  \begin{tabular}{|c|c|c|}
+	    \hline
+	    Edge     &  Hop     &  Info \\
+	    \hline
+	    \hline
+	    $e_1$    &  1         &  $k_{12}$ \\
+	    %\hline
+	    &  2         &  $k_{14}$ \\
+	    %\hline
+	    &  \ldots    &  \ldots       \\
+	    \hline
+	    \hline
+	    $e_2$    &  1         &  $k_{13}$ \\
+	    %\hline
+	    & \ldots     &  \ldots       \\
+	    \hline
+	\end{tabular}
+	\end{center}
+      \end{column}
+    \end{columns}
+    \caption{Witness table}
+  \end{figure}
+
+  \begin{block}{Scalability}
+    \begin{description}
+    \item[Space usage:] $O( |k| \times d \times w )$
+    \item[Bootstrap:] By propagation along the routes
+    \item[Maintainance:] Upon social changes (rare)
+    \end{description}
+  \end{block}
+
+\end{frame}
 
 %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
 
