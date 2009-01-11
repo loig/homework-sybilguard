@@ -132,7 +132,12 @@ Hence the owner of $r$ will accept only $w$ nodes in each group: it will bound t
 Experiments give the following results: in network (1), with 2500 attack edges $0,2\%$ of the nodes can accept more than $g.w$ sybil nodes and with 2000 attack edges it is $0\%$.
 In network (2) with 204 attack edges $0,4\%$ of the nodes are not protected, and in network (3) with 11 attack edges $5,1\%$ of the nodes are not protected.
 
- 
+SybilGuard also garantees that, using appropriate length for random routes, an honest node will accept many of the honest nodes with high probability. 
+This was verified experimentaly.
+Without sybil attackers, in network (1) a node has $99,96\%$ probability to be accepted by the node using SybilGuard with a length of random routes of 300 hops, in network (2) it is $99,29\%$ with a length of 30 hops, and in network (3) it is $99,97\%$ with a length of 15 hops.
+When there is sybil attackers, the probability for an honest node to be accepted by the node using SybilGuard is, in network (1) with 2500 attack edges, $99,8\%$.
+In the network (2) it is $99,6\%$ with 204 attack edges, and in network (3) it is $87,7\%$ with 11 attack edges.
+One can notice that it doesn't mean that some honest nodes will not be accepted by the system but that the node using SybilGuard will not accept these nodes.
 
 \section{Distributed Algorithm}
 
