@@ -95,7 +95,7 @@ In particular it means that in a social network two random walks starting from t
 \paragraph{}
 In order to be able to exploit the two properties defined above, SybilGuard uses the concept of \emph{random routes}.
 Random routes are walk in the graph based on random routing tables: at the begining each node computes his routing table (which is a random permutation of his edges) and then these routing tables are used to computes the random routes.
-In fact if a node initiates a walk $w$ by a given edge with a fixed length then all walk initiaded by the same node with the same edge and the same length will be exactly $w$.
+In fact if a node initiates a walk $r$ by a given edge with a fixed length then all walk initiaded by the same node with the same edge and the same length will be exactly $r$.
 
 Because SybilGuard is based on intersection between random routes it is necessary to define the optimal length of these walks: not to short (a random routes has to intersect with a sufficient number of other random routes to ensure each node to accept a sufficient number of nodes) and not to long (if a random route goes into the sybil part of the network then a node will accept a huge number of sybil nodes).
 Some analytical results show that a length of $O(\sqrt{n} \log n)$ for random walks ensure the above requirements. 
@@ -106,7 +106,7 @@ The first thing we can notice is that a loop can only appar at the start point o
 Moreover such a loop involves at least three hops.
 One can also notice that if $d$ is the smallest degree in the graph a three hops loop is formed with probability at most $1/d^2$ and a bigger loop has less probability to be formed.
 The problem with loops is that they reduce the probability for a random route to intersect with many other random routes. 
-Experimental results seems to confirm that there is really few random routes which are loops: in network (1) $99,3\%$ of the 2500 hops routes does not loop, in network (2) $99,7\%$ of the 200 hops routes does not loop, and in network (3) $90\%$ of the 50 hops routes does not loop.
+Experimental results, maid without sybil attackers, seems to confirm that there is really few random routes which are loops: in network (1) $99,3\%$ of the 2500 hops routes does not loop, in network (2) $99,7\%$ of the 200 hops routes does not loop, and in network (3) $90\%$ of the 50 hops routes does not loop.
 
 
 %% Guarantees provided by SybilGuard
@@ -125,6 +125,14 @@ Because there is a bounded number $g$ of attack edges, the random routes startin
 Thus, SybilGuard will let node $V$ put in the same group all the nodes which random route intersect the random route of $V$ at the same node and coming from the same edge.
 Finally, for $V$, there will be at most $g$ groups of accepted nodes which can contain sybil nodes. 
 
+Moreover SybilGuard bounds the size of sybil groups.
+Denote by $w$ the length of the random routes.
+In fact, given a random route $r$, we deduce from the properties of random routes that there can be at most $w$ distinct routes that intersect with $r$ at the same node, entering this node from the same edge.
+Hence the owner of $r$ will accept only $w$ nodes in each group: it will bound the number of sybil nodes in a sybil group (by $w$) and will not make a node refuse honest nodes in an honest group.
+Experiments give the following results: in network (1), with 2500 attack edges $0,2\%$ of the nodes can accept more than $g.w$ sybil nodes and with 2000 attack edges it is $0\%$.
+In network (2) with 204 attack edges $0,4\%$ of the nodes are not protected, and in network (3) with 11 attack edges $5,1\%$ of the nodes are not protected.
+
+ 
 
 \section{Distributed Algorithm}
 
