@@ -314,4 +314,104 @@
 
 %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
 
+\begin{frame}
+
+  \frametitle{Verification Algorithm (1/3)}
+
+  \begin{figure}
+    \includegraphics[width=8cm]{./pictures/verification_1} 
+    \caption{Step 1: $S$ sends its witness tables and secret to $V$}
+  \end{figure}
+
+\end{frame}
+
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+
+\begin{frame}
+
+  \frametitle{Verification Algorithm (2/3)}
+
+  \begin{figure}
+    \includegraphics[width=8cm]{./pictures/verification_2} 
+    \caption{Step 2: $V$ searches a node belonging to both witness tables}
+  \end{figure}
+
+\end{frame}
+
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+
+\begin{frame}
+
+  \frametitle{Verification Algorithm (3/3)}
+
+  \begin{figure}
+    \includegraphics[width=8cm]{./pictures/verification_3} 
+    \caption{Step 3: $V$ asks $X$ whether $S$ is in its registry table}
+  \end{figure}
+
+\end{frame}
+
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+
+\begin{frame}
+
+  \frametitle{Conclusion}
+
+  \begin{block}{SybilGuard Benefits}
+    \begin{itemize}
+    \item Offers several bounds on Sybil nodes, with high probability
+    \item Fully decentralized 
+    \item Extremely scalable
+    \end{itemize}
+  \end{block}
+
+  \begin{block}{SybilGuard Extras}
+    \begin{itemize}
+    \item Very lightweight, in term of bandwidth and processing
+    \item Good behavior under dynamism
+    \item Sound mathematical basis
+    \end{itemize}
+  \end{block}
+
+\end{frame}
+
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+
+\begin{frame}
+
+  \begin{center}
+    \Huge{Questions ?}
+  \end{center}
+
+\end{frame}
+
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+
+\begin{frame}
+
+  \frametitle{Experimental Results (1/2)}
+
+  \begin{figure}
+    \includegraphics[width=8cm]{./pictures/result_honest_node} 
+    \caption{Probability of an honest node accepting another honest node}
+  \end{figure}
+
+\end{frame}
+
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+
+\begin{frame}
+
+  \frametitle{Experimental Results (2/2)}
+
+  \begin{figure}
+    \includegraphics[width=8cm]{./pictures/result_sybil_nodes} 
+    \caption{Probability of routes entirely remaining within the honest region}
+  \end{figure}
+
+\end{frame}
+
+
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+
 \end{document}
