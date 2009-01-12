@@ -213,6 +213,17 @@ Once one can add and delete edges he can also add and delete nodes, just by addi
 %%      - Mention that it also avoids attacks exploiting dynamism
 %%      - Mention that it also helps nodes close to a Sybil zone
 
+Moreover some nodes of the social network can be offline.
+In order to deal with it we give the cases where communications are needed: when a node wants to accept or note a new node it has to contact the intersection nodes of randome routes and when a node propagates its tables to its neighbours.
+
+The second case occurs when there is edges deletion or creation in the social network.
+In this case it is just possible to take days to finish to update the tables (social relations in real life make months to change and an user lifetime is arround one year in peer-to-peer networks), so we do not have to take care of offline nodes: just wait for them to be online. 
+
+The first case is solved using redundancy: in SybilGuard a node $V$ with degree $d$ does not performs one random route but $d$ and accepts a node $S$ only if they have more than a number $t$ of intersections between their random routes.
+Hence, it is not a problem if some intersections nodes are offline while sufficiently are online.
+
+Moreover this redundancy system helps to prevent against attacks exploiting dynamics and provide a way for nodes close to sybil zone to avoid too much sybil nodes acceptance. 
+
 \section*{Conclusion}
 
 %% Scalable solution to fight Sybil attacks
