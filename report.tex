@@ -32,10 +32,10 @@
 In peer-to-peer systems -- and more generally in distributed systems
 -- a \emph{Sybil attack} is a situation where a malicious user obtains
 multiple identities associated with distinct nodes of the system.
-However, for example, most byzantine failure tolerant protocols assume
-that no more than $1/3$ of the nodes are byzantine.  So, if a Sybil
+However, for example, most Byzantine failure tolerant protocols assume
+that no more than $1/3$ of the nodes are Byzantine.  So, if a Sybil
 attacker is able to control more a third of the system, he could
-defeat the defenses against byzantine failures.  Hence, providing an
+defeat the defenses against Byzantine failures.  Hence, providing an
 efficient mechanism against Sybil attacks paves the way for
 collaborative tasks based on voting schemes in peer-to-peer systems.
 
@@ -45,7 +45,7 @@ collaborative tasks based on voting schemes in peer-to-peer systems.
 %%   - Consequence: OR we should solve a weaker problem
 
 In~\cite{douceur} an important result is proved: without a central,
-trusted authority responsible of ensuring a one-to-one correspondance
+trusted authority responsible of ensuring a one-to-one correspondence
 between users and identities, it is \emph{impossible} to prevent Sybil
 attacks. Therefore, instead of relying on a central authority,
 \emph{SybilGuard} proposes to weaken the problem in order to allow
@@ -61,9 +61,9 @@ Hence, SybilGuard offers to bound the number of Sybil groups
 user) and the size of these groups.  Hence, even if this does not
 fully protect against Sybil attacks, it is sufficient to be useful.
 For example, in order to maintain replicas of a file, knowing that at
-most $g$ sybil groups exist allow us to distribute only $g+1$ replicas
+most $g$ Sybil groups exist allow us to distribute only $g+1$ replicas
 in distinct groups.  Moreover, having a bounded number of Sybil nodes
-garantees that, by randomly assigning the replicas, the probability of
+guarantees that, by randomly assigning the replicas, the probability of
 having a majority of replicas on honest nodes grows exponentially with
 the number of replicas.
 
@@ -173,7 +173,7 @@ experimentally verified in Section 6.1 paragraph 2 (with only honest
 nodes) as well as in Section 6.2 paragraph 2 (with malicious
 users). In both case, this gave excellent results.
 
-SybilGuard also garantees that an honest node will accept other honest
+SybilGuard also guarantees that an honest node will accept other honest
 nodes with high probability: it is sufficient for their routes to
 intersect.
 
@@ -214,14 +214,14 @@ the random routes of $S$ -- are consistent with the registry tables --
 which contain the random routes arriving at the corresponding node --
 of the intersection nodes.
 
-These tables are simply built by propagation along neighbours.
+These tables are simply built by propagation along neighbors.
 Moreover, these tables need only to contain a public key per entry (as
 well as an IP address, in the case of witness tables). Hence,
 maintaining these tables is not so expensive, in term of communication
 as well as network usage.  For registry tables, with a one million
 nodes network, a random routes length of 2000, and using 1024-bit
 keys, the size of a single registry table is roughly 256KB.  Hence, a
-node with 10 neighbours will have to send 2.56MB of data.
+node with 10 neighbors will have to send 2.56MB of data.
 
 %% Determining the length of random routes
 %%   - Principle
@@ -259,7 +259,7 @@ estimation and the theoretical value is negligible.
 
 \section{Dealing with Dynamic Networks}
 
-In fact, SybilGuard as presented above does not deals with dynamicity.
+In fact, SybilGuard as presented above does not deals with dynamism.
 In this section we explain how it is done. First, it is important to
 notice that, unless during the verification process, SybilGuard does not
 rely on nodes being online or even their exact network
@@ -298,13 +298,13 @@ deleting its edges one by one.
 Concerning offline nodes, we first observe that a communication is
 needed only in the following cases: when a node wants to verify a
 suspected node, in which case it has to contact the intersection
-nodes, and when a node propagates its tables to its neighbours, for
-maintainance purpose.
+nodes, and when a node propagates its tables to its neighbors, for
+maintenance purpose.
 
 The second case occurs when the social network is modified. However,
 social relations in real life take months to change and an user
 lifetime is in a peer-to-peer system is about a year. Therefore, a
-maintainance can take days to complete, without impacting the
+maintenance can take days to complete, without impacting the
 performance or reliability of the system. Therefore, we do not have to
 care about offline nodes: we simply wait for them to be online.
 
