@@ -57,11 +57,8 @@ Moreover having a bounded number of sybil nodes, smaller than the total number o
 %%   - Particularity: the experimental results are mentioned along the text, 
 %%                    to highlight the practical value of this system
 
-network (1): one million nodes, average node degree 24,
-
-network (2): 10000 nodes, average node degree 24, 
-
-network (3): 100 nodes, average node degree 12.
+In the following we first present the basics about SybilGuard (concepts and properties), then we present the SybilGuard protocole and finally we explain how it is possible to deal with dynamic networks.
+Experimental results are presented along the text, using three networks: (1) is a one million nodes network with an average node degree of 24, (2) is a 10000 nodes network with an average node degree of 24, and (3) is a 100 nodes network with an average node degree of 12.
 
 \section{Design Rationale}
 
@@ -232,6 +229,9 @@ Moreover this redundancy system helps to prevent against attacks exploiting dyna
 
 %% Lack of real-life deployment
 
+SybilGuard is a fully decentralized way to fight sybil attacks.
+Based on thorical results it provides strong properties with high probability (number and size of sybil groups bounded for $99,8\%$ of honest nodes, honest nodes accepted by at least $99,8\%$ of other honest nodes).
+The only thing to do, from now, is to deploy it over real networks.
 
 \bibliography{report}{}
 
