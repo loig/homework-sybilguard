@@ -74,12 +74,8 @@ the number of replicas.
 
 In the following, we first present the design rationale of SybilGuard.
 Then, we describe its decentralized implementation. Finally, we
-explain how it is possible to deal with dynamic networks. Unlike a
-traditional paper and in order to emphasize the practical value of
-this system, the experimental results are presented along the text, to
-confirm the author's statements.
+explain how it is possible to deal with dynamic networks. 
 
-\newpage
 
 \section{Design Rationale}
 
@@ -162,17 +158,24 @@ subsequent edges.  Because there is a bounded number $g$ of attack
 edges, the random routes starting at Sybil nodes can only follow $g$
 distinct paths in the honest region.  Thus, for a verifier $V$, all
 nodes intersecting at the same node $X$ belongs to the same group and,
-among all these groups, at most $g$ contains Sybil nodes. 
-Moreover SybilGuard bounds the size of each Sybil group. Let us denote
-$w$ the length of random routes.  Given an edge $e$, we deduce from
-the \emph{back-traceability property} of random routes -- going
+among all these groups, at most $g$ contains Sybil nodes. Some
+experimental results are discussed in Section 6.2, paragraph 1. They
+clearly demonstrates SybilGuard's efficiency in bounding the number of
+Sybil groups.
+
+Moreover, SybilGuard bounds the size of each Sybil group. Let us
+denote $w$ the length of random routes.  Given an edge $e$, we deduce
+from the \emph{back-traceability property} of random routes -- going
 through an edge fully determine which edge was previously traversed --
 that there is at most $w$ distinct routes going through $e$.  Hence, a
-verified will accept at most $w$ nodes by group.
+verified will accept at most $w$ nodes by group. This has been
+experimentally verified in Section 6.1 paragraph 2 (with only honest
+nodes) as well as in Section 6.2 paragraph 2 (with malicious
+users). In both case, this gave excellent results.
+
 SybilGuard also garantees that an honest node will accept other honest
 nodes with high probability: it is sufficient for their routes to
 intersect.
-
 
 %% Experimentally, 
 %% Without Sybil attackers, in network (1) a node has $99,96\%$ probability to be accepted by the node using SybilGuard with a length of random routes of 300 hops, in network (2) it is $99,29\%$ with a length of 30 hops, and in network (3) it is $99,97\%$ with a length of 15 hops.
@@ -231,7 +234,10 @@ node $B$. Then, $A$ and $B$ both perform a random route in order to
 determine how long these routes need to be to intersect.  After having
 obtained multiple samples, $A$ computes their median $m$ and takes
 $2.1 \times m$ as the length of its random routes. As shown in the
-paper, the estimated length is optimal, with high probability.
+paper, the estimated length is optimal, with high probability. This
+technique is experimentally confirmed in Section 6.1 paragraph 3 and
+Section 6.2 paragraph 3: they show that the difference between the
+estimation and the theoretical value is negligible.
 
 %% Some experiments were done to check if this way of determining random
 %% routes length was efficient.  The protocole is simple: first $B$ was
