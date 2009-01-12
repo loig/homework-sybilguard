@@ -15,13 +15,13 @@
 \chead{PAP}
 \rhead{Report: SybilGuard}
 
+\title{Report: SybilGuard}
+\author{Pierre-Evariste {\sc Dagand} \and Loïg {\sc Jezequel}}
+\date{}
+
 \begin{document}
 
-\begin{center} 
-  {\Large PAP \\ Report SybilGuard}\\
-  Pierre-Evariste {\sc Dagand} \\
-  Loïg {\sc Jezequel}
-\end{center}
+\maketitle
 
 \section*{Introduction}
 
@@ -30,51 +30,56 @@
 %%   - Practical interest of canceling the Sybil Attacks
 
 In peer-to-peer systems -- and more generally in distributed systems
--- a \emph{sybil attack} is a situation where a malicious user obtains
+-- a \emph{Sybil attack} is a situation where a malicious user obtains
 multiple identities associated with distinct nodes of the system.
-However, most byzantine failure tolerant protocols assume that no more
-than $1/3$ of the nodes are byzantine.  So, if a sybil attacker is
-able to control more a third of the system, he could defeat the
-defenses against byzantine failures.  Hence, providing an efficient
-mechanism against sybil attacks improve possibilities of collaborative
-tasks based on voting schemes on peer-to-peer systems.
+However, for example, most byzantine failure tolerant protocols assume
+that no more than $1/3$ of the nodes are byzantine.  So, if a Sybil
+attacker is able to control more a third of the system, he could
+defeat the defenses against byzantine failures.  Hence, providing an
+efficient mechanism against Sybil attacks paves the way for
+collaborative tasks based on voting schemes in peer-to-peer systems.
 
 %% Impossibility Result
 %%   - State the result: Douceur [IPTPS'02]
 %%   - Consequence: to avoid Sybil Attacks, we must use a Central authority
 %%   - Consequence: OR we should solve a weaker problem
 
-In~\cite{douceur} an important result is prooved: without a central
-(and trusted) authority responsible for checking that a one-to-one
-correspondance between users and identities exists, one can always
-have multiple identities.  That is why \emph{SybilGuard}, which is a
-fully decentralized solution, proposes to solve a weaker problem.
+In~\cite{douceur} an important result is proved: without a central,
+trusted authority responsible of ensuring a one-to-one correspondance
+between users and identities, it is \emph{impossible} to prevent Sybil
+attacks. Therefore, instead of relying on a central authority,
+\emph{SybilGuard} proposes to weaken the problem in order to allow
+fully decentralized solutions, while still providing a useful service.
 
 %% SybilGuard trade-off
 %%   - Solve a weaker problem: (very briefly) describe the problem solved
 %%   - Still, useful: attenuate its supposed weaknesses
 %%   - Demonstrate some uses: give example of what can be done with the guarantees it provides
 
-Instead of totally avoid sybil identities SybilGuard suggests to bound
-the number of sybil groups (i.e. groups, defined by an equivalence
-relation, which contains sybil identities) and the size of these
-groups.  In fact even if SybilGuard does not fully prevent against
-sybil attacks it is sufficiently strong to be useful.  For example, in
-order to maintain replicas of a file, ensure that at most $g$ sybil
-groups exist allows to provide only $g+1$ replicas (to ensure that at
-most one is not on a sybil node).  Moreover having a bounded number of
-sybil nodes, smaller than the total number of nodes, ensures that, by
-randomly assign the replicas, the probability of having a majority of
-replicas on honest nodes will grow exponentially with the number of
-replicas.
+Hence, SybilGuard offers to bound the number of Sybil groups
+(i.e. groups which contains the Sybil identities of the same malicious
+user) and the size of these groups.  Hence, even if this does not
+fully protect against Sybil attacks, it is sufficient to be useful.
+For example, in order to maintain replicas of a file, knowing that at
+most $g$ sybil groups exist allow us to distribute only $g+1$ replicas
+in distinct groups.  Moreover, having a bounded number of Sybil nodes
+garantees that, by randomly assigning the replicas, the probability of
+having a majority of replicas on honest nodes grows exponentially with
+the number of replicas.
 
 %% Our plan
 %%   - Present our plan
 %%   - Particularity: the experimental results are mentioned along the text, 
 %%                    to highlight the practical value of this system
 
-In the following we first present the basics about SybilGuard (concepts and properties), then we present the SybilGuard protocole and finally we explain how it is possible to deal with dynamic networks.
-Experimental results are presented along the text, using three networks: (1) is a one million nodes network with an average node degree of 24, (2) is a 10000 nodes network with an average node degree of 24, and (3) is a 100 nodes network with an average node degree of 12.
+In the following, we first present the design rationale of SybilGuard.
+Then, we describe its decentralized implementation. Finally, we
+explain how it is possible to deal with dynamic networks. Unlike a
+traditional paper and in order to emphasize the practical value of
+this system, the experimental results are presented along the text, to
+confirm the author's statements.
+
+\newpage
 
 \section{Design Rationale}
 
@@ -86,14 +91,20 @@ Experimental results are presented along the text, using three networks: (1) is 
 %%      - definition 
 %%      - implication for the theoretical study
 
-SybilGuard is based on a social network, that is a graph where the topology is constructed from human-established trust relations: there is an edge between two entities if and only if they know eachother (e.g. they have friendship relations in real life).
-The principe of SybilGuard is to let a node $V$ accept a node $S$ if and only if a random walk from $V$ in the social network intersects with a random walk from $S$.
-
-Generally social networks have  big \emph{quotient cut}: a large number of nodes can not be disconnected from the rest of the graph by removing a small number of edges.
-In presence of many sybil nodes the quotient cut of such a network becomes small: a small set of edges (called \emph{attack edges}) disconnect a large part of the graph (the sybil nodes) from the rest of it when removed.
-
-Moreover, social networks ensure a property called \emph{fast mixing}: after a small number of hops on a random walk ($O(\log n)$ hops) the walk becomes roughly independent from its starting point.
-In particular it means that in a social network two random walks starting from two different nodes have high probability to instersect eachother after a small number of hops.
+SybilGuard is based on a social network, that is a graph of
+human-established trust relationships: there is an edge between two
+entities if and only if they trust each other \emph{in real
+life}. Usually, social networks have big \emph{quotient cut}: a large
+number of nodes can not be disconnected from the rest of the graph by
+removing a small number of edges. However, the quotient cut between
+honest and Sybil nodes is inherently small: a small set of edges --
+termed \emph{attack edges} -- connect the Sybil nodes to the honest
+nodes, as we expect the number of trust relationships between honest
+persons and fake identities to be very low. Moreover, social networks
+are \emph{fast mixing}: after a small number of random hops ($O(\log
+n)$ hops), the resulting position is independent from the starting
+point.  In particular, this means that two random walks starting from
+two distinct nodes intersect with high probability.
 
 %% Random route
 %%   - Principle (to compare with random walk)
@@ -105,21 +116,34 @@ In particular it means that in a social network two random walks starting from t
 %%       - What is there impact (reduce efficiency, not soundness)
 %%       - Experimental result: Section 6.1 paragraph 1
 
-\paragraph{}
-In order to be able to exploit the two properties defined above, SybilGuard uses the concept of \emph{random routes}.
-Random routes are walk in the graph based on random routing tables: at the begining each node computes his routing table (which is a random permutation of his edges) and then these routing tables are used to computes the random routes.
-In fact if a node initiates a walk $r$ by a given edge with a fixed length then all walk initiaded by the same node with the same edge and the same length will be exactly $r$.
+In order to exploit these properties, SybilGuard uses \emph{random
+routes}. A random route consists of a walk in the social graph,
+following \emph{random routing tables}. For a given node, a random routing
+table is defined as a random permutation $\sigma$ of its social edges,
+meaning that a walk coming from edge $e_1$ will be redirected to edge
+$\sigma(e_1)$. Hence, unlike a random walk, a random route is fully
+deterministic once the routing tables are built.
+As SybilGuard exploits the intersection property, the length of these
+routes has to be carefully chosen: not to short -- random routes have
+to intersect with high probability -- and not to long -- going into
+the Sybil region would lower its efficiency.  The paper shows that a
+length of $O(\sqrt{n} \log n)$ hops ensures the above requirements.
 
-Because SybilGuard is based on intersection between random routes it is necessary to define the optimal length of these walks: not to short (a random routes has to intersect with a sufficient number of other random routes to ensure each node to accept a sufficient number of nodes) and not to long (if a random route goes into the sybil part of the network then a node will accept a huge number of sybil nodes).
-Some analytical results show that a length of $O(\sqrt{n} \log n)$ for random walks ensure the above requirements. 
-These results are for random walks but can be extended to random routes.
+%% Loops: not so important after all
 
-Random routes can also have loops.
-The first thing we can notice is that a loop can only appar at the start point of a random route (because of the properties of random routes).
-Moreover such a loop involves at least three hops.
-One can also notice that if $d$ is the smallest degree in the graph a three hops loop is formed with probability at most $1/d^2$ and a bigger loop has less probability to be formed.
-The problem with loops is that they reduce the probability for a random route to intersect with many other random routes. 
-Experimental results, maid without sybil attackers, seems to confirm that there is really few random routes which are loops: in network (1) $99,3\%$ of the 2500 hops routes does not loop, in network (2) $99,7\%$ of the 200 hops routes does not loop, and in network (3) $90\%$ of the 50 hops routes does not loop.
+%% Random routes can also have loops.  The first thing we can notice is
+%% that a loop can only appar at the start point of a random route
+%% (because of the properties of random routes).  Moreover such a loop
+%% involves at least three hops.  One can also notice that if $d$ is the
+%% smallest degree in the graph a three hops loop is formed with
+%% probability at most $1/d^2$ and a bigger loop has less probability to
+%% be formed.  The problem with loops is that they reduce the probability
+%% for a random route to intersect with many other random routes.
+%% Experimental results, maid without Sybil attackers, seems to confirm
+%% that there is really few random routes which are loops: in network (1)
+%% $99,3\%$ of the 2500 hops routes does not loop, in network (2)
+%% $99,7\%$ of the 200 hops routes does not loop, and in network (3)
+%% $90\%$ of the 50 hops routes does not loop.
 
 
 %% Guarantees provided by SybilGuard
@@ -129,35 +153,45 @@ Experimental results, maid without sybil attackers, seems to confirm that there 
 %%   - Accept honest nodes with hight probability
 %%       - Experimental result: Section 6.1 paragraph 2, Section 6.2 paragraph 2
 
-\paragraph{}
-Using the concept of random routes and the properties of social networks, SybilGuard provides some properties of practical interest.
+Based on random routes and the properties of social networks,
+SybilGuard provides some properties of practical interest. First,
+SybilGuard bounds the number of Sybil groups by the number of attack
+edges.  This is ensured by the \emph{convergence property} of random
+routes: if two routes go through a single edge, then they share all
+subsequent edges.  Because there is a bounded number $g$ of attack
+edges, the random routes starting at Sybil nodes can only follow $g$
+distinct paths in the honest region.  Thus, for a verifier $V$, all
+nodes intersecting at the same node $X$ belongs to the same group and,
+among all these groups, at most $g$ contains Sybil nodes. 
+Moreover SybilGuard bounds the size of each Sybil group. Let us denote
+$w$ the length of random routes.  Given an edge $e$, we deduce from
+the \emph{back-traceability property} of random routes -- going
+through an edge fully determine which edge was previously traversed --
+that there is at most $w$ distinct routes going through $e$.  Hence, a
+verified will accept at most $w$ nodes by group.
+SybilGuard also garantees that an honest node will accept other honest
+nodes with high probability: it is sufficient for their routes to
+intersect.
 
-SybilGuard allows the number of sybil groups to be bounded by the number of attack edges.
-This is ensured by the properties of random routes: if two routes share an edge then they share all there edges after it.
-Because there is a bounded number $g$ of attack edges, the random routes starting at sybil nodes can only follow $g$ different paths in the honest part of the social network.
-Thus, SybilGuard will let node $V$ put in the same group all the nodes which random route intersect the random route of $V$ at the same node and coming from the same edge.
-Finally, for $V$, there will be at most $g$ groups of accepted nodes which can contain sybil nodes. 
 
-Moreover SybilGuard bounds the size of sybil groups.
-Denote by $w$ the length of the random routes.
-In fact, given a random route $r$, we deduce from the properties of random routes that there can be at most $w$ distinct routes that intersect with $r$ at the same node, entering this node from the same edge.
-Hence the owner of $r$ will accept only $w$ nodes in each group: it will bound the number of sybil nodes in a sybil group (by $w$) and will not make a node refuse honest nodes in an honest group.
-Experiments give the following results: in network (1), with 2500 attack edges $0,2\%$ of the nodes can accept more than $g.w$ sybil nodes and with 2000 attack edges it is $0\%$.
-In network (2) with 204 attack edges $0,4\%$ of the nodes are not protected, and in network (3) with 11 attack edges $5,1\%$ of the nodes are not protected.
-
-SybilGuard also garantees that, using appropriate length for random routes, an honest node will accept many of the honest nodes with high probability. 
-This was verified experimentaly.
-Without sybil attackers, in network (1) a node has $99,96\%$ probability to be accepted by the node using SybilGuard with a length of random routes of 300 hops, in network (2) it is $99,29\%$ with a length of 30 hops, and in network (3) it is $99,97\%$ with a length of 15 hops.
-When there is sybil attackers, the probability for an honest node to be accepted by the node using SybilGuard is, in network (1) with 2500 attack edges, $99,8\%$.
-In the network (2) it is $99,6\%$ with 204 attack edges, and in network (3) it is $87,7\%$ with 11 attack edges.
-One can notice that it doesn't mean that some honest nodes will not be accepted by the system but that the node using SybilGuard will not accept these nodes.
+%% Experimentally, 
+%% Without Sybil attackers, in network (1) a node has $99,96\%$ probability to be accepted by the node using SybilGuard with a length of random routes of 300 hops, in network (2) it is $99,29\%$ with a length of 30 hops, and in network (3) it is $99,97\%$ with a length of 15 hops.
+%% When there is Sybil attackers, the probability for an honest node to be accepted by the node using SybilGuard is, in network (1) with 2500 attack edges, $99,8\%$.
+%% In the network (2) it is $99,6\%$ with 204 attack edges, and in network (3) it is $87,7\%$ with 11 attack edges.
+%% One can notice that it doesn't mean that some honest nodes will not be accepted by the system but that the node using SybilGuard will not accept these nodes.
 
 \section{Distributed Algorithm}
 
 %% Protocol Overview
 
-The idea of SybilGuard protocol is to perform random routes in a fully decentralized way and to verify their intersection using two data-structures, the registry table and the witness table, that each node need to maintains.
-Each node $V$ of degree $d$ has to perform $d$ random routes of lenght $w$ and will accept another node $S$ if at least a half of the routes of $V$ intersect with routes of $S$.  
+The idea of SybilGuard protocol is to perform random routes in a fully
+decentralized way and to verify their intersection using two
+data-structures, the \emph{registry table} and the \emph{witness
+table}. The verification process is the following: a verifier $V$ of
+degree $d$ performs $d$ random routes of length $w$. It accepts a
+suspect $S$ if at least a half of the routes of $V$ intersect with
+routes of $S$, after having ensured that the route announced by $S$ is
+indeed feasible.
 
 %% Data-Structures
 %%   - Registry table
@@ -166,58 +200,87 @@ Each node $V$ of degree $d$ has to perform $d$ random routes of lenght $w$ and w
 %%      - Number of entries
 %%      - Memory footprint
 
-The two data-structures involved in SybilGuard allow $V$ to be sure that $S$ doesn't give him false informations.
-Indeed $V$ will check if $S$ witness tables (which give the random routes of $S$) are consistant with their intersections registry tables (which give the random routes arriving to these intersections).
+Each node $N$ maintain a registry table for each of its edge $e$.  The
+$i^{th}$ entry of this table contains the identity of the node which
+$i^{th}$ hop arrives to $N$ by $e$.  Each node also maintain a witness
+table for each of its edge $e$.  The $i^{th}$ entry of this table
+contains the identity of the node encountered at $i^{th}$ hop along
+$e$.  These two data-structures allow $V$ to be sure that $S$ does not
+falsify its routes. $V$ checks if $S$ witness tables -- which contain
+the random routes of $S$ -- are consistent with the registry tables --
+which contain the random routes arriving at the corresponding node --
+of the intersection nodes.
 
-Each node $N$ thus maintain a registry table for each of its edges, $e$. 
-The $i^{th}$ entry of this table contains the identity of the node which route has $i^{th}$ hop arriving to $N$ by $e$.
-
-Each node also maintain a witness table for each of its edges $e$.
-The $i^{th}$ entry of this table contains the identity of the node encountered at $i^{th}$ hop on the random route along $e$.
-
-These tables are constructed only by sending them to one hop neighbours.
-Moreover, in fact, these tables does not really contains nodes identities but public keys (and also IP for witness table) in order to prevent against identity steals.
-
-Maintaining these tables is not so expensive.
-For registry table, with a one million nodes network, a random routes length of 2000, and using 1024-bit keys, the size will be roughly 256KB.
-Hence, a node with 10 neighbours will have to send 2.56MB of data.
-Moreover it is possible to hash public keys, and in this case the total data sent by this node could decrease to 400MB.
+These tables are simply built by propagation along neighbours.
+Moreover, these tables need only to contain a public key per entry (as
+well as an IP address, in the case of witness tables). Hence,
+maintaining these tables is not so expensive, in term of communication
+as well as network usage.  For registry tables, with a one million
+nodes network, a random routes length of 2000, and using 1024-bit
+keys, the size of a single registry table is roughly 256KB.  Hence, a
+node with 10 neighbours will have to send 2.56MB of data.
 
 %% Determining the length of random routes
 %%   - Principle
 %%   - Experimental result: Section 6.1 paragraph 3, Section 6.2 paragraph 3
 
-SybilGuard is fully decentralized, thus, each node $A$ has to determine locally the length of its random routes.
-To do that the principle is very simple: $A$ performs a short random walk (not a random route), i.e. $\geq 3$ hops, ending at the node $B$ (which is probably not a sybil node because the random walk is short).
-Then $A$ perform a random route, as $B$ does, in order to determine how long these routes need to be to intersect.
-After having obtained multiple such samples, $A$ computes the median $m$ of these and takes $2,1m$ as the length of its random routes (the constant 2.1 was obtained analiticaly).
+SybilGuard is fully decentralized, thus each node $A$ has to locally
+estimate the optimal length of its random routes.  To do so, $A$
+performs a short \emph{random walk}, e.g. less than 3 hops, reaching
+node $B$. Then, $A$ and $B$ both perform a random route in order to
+determine how long these routes need to be to intersect.  After having
+obtained multiple samples, $A$ computes their median $m$ and takes
+$2.1 \times m$ as the length of its random routes. As shown in the
+paper, the estimated length is optimal, with high probability.
 
-Some experiments were done to check if this way of determining random routes length was efficient.
-The protocole is simple: first $B$ was choosen uniformly random and a theorical length was computed, then $B$ was choosen using the method described above and the lenght obtained was compared with the theorical one.
-In the case where no sybil attackers exist, in network (1), using 30 samples the diffence with the theorical length was at most 300 hops (for a theorical length of 1906 hops) and using 100 samples the difference was at moste 150 hops.
-In network (2), for a theorical length of 197 hops, the difference was at most 30 hops, using 35 samples.
-In network (3), for a theorical length of 24 hops, the difference was at most 7 hops, using 40 samples.  
-Then in presence of sybil attackers the probability for sample to be potentially influenced by the adversary (i.e. any of the two random routes enter in the sybil region) was studied.
-In network (1), with 2500 attack edges, this probability is under $20\%$, as in networks (2) and (3) with 204 and 11 attack edges.
+%% Some experiments were done to check if this way of determining random
+%% routes length was efficient.  The protocole is simple: first $B$ was
+%% choosen uniformly random and a theorical length was computed, then $B$
+%% was choosen using the method described above and the lenght obtained
+%% was compared with the theorical one.  In the case where no Sybil
+%% attackers exist, in network (1), using 30 samples the diffence with
+%% the theorical length was at most 300 hops (for a theorical length of
+%% 1906 hops) and using 100 samples the difference was at moste 150 hops.
+%% In network (2), for a theorical length of 197 hops, the difference was
+%% at most 30 hops, using 35 samples.  In network (3), for a theorical
+%% length of 24 hops, the difference was at most 7 hops, using 40
+%% samples.  Then in presence of Sybil attackers the probability for
+%% sample to be potentially influenced by the adversary (i.e. any of the
+%% two random routes enter in the Sybil region) was studied.  In network
+%% (1), with 2500 attack edges, this probability is under $20\%$, as in
+%% networks (2) and (3) with 204 and 11 attack edges.
 
 
 \section{Dealing with Dynamic Networks}
 
-In fact, SybilGuard as presented above does not deals with dynamicity. 
-In this section we explain how it is done.
+In fact, SybilGuard as presented above does not deals with dynamicity.
+In this section we explain how it is done. First, it is important to
+notice that, unless during the verification process, SybilGuard does not
+rely on nodes being online or even their exact network
+location. Hence, it needs only to track changes at the social level,
+where we expect relations to be quite static.
 
 %% Routing tables maintenance
 %%    - Algorithms for adding/deleting an edge
 %%    - Generalization to adding/deleting a node
 %%    - Can take days to complete, there is no hurry: work at the social level
 
-A typical action in dynamic networks is to add or delete an edge.
-Deleting an edge in the social network involved in SybilGuard is not doing efficiently if it induce a modification of a lot of witness and registry tables.
-That is why the routing table of a node $A$ which gains or looses an edge has to be modified carefuly.
-The solution proposed is, when edge $d+1$ is added to $A$ of degree $d$, to choose randomly an edge $k$ between 1 and $d+1$ and to replace the initial routing table [$x_1,x_2,\dots, x_d$] (represented as a permutation) by the new routing table [$x_1,x_2,\dots x_{k-1},d+1,x_{k+1},\dots, x_d, x_k$] if $k\neq d+1$ or else by the new routing table [$x_1,x_2,\dots ,x_d,d+1$].
-When edge $d+1$ is deleted from $A$ of degree $d+1$ and such that $x_k=d+1$ the routing table becomes [$x_1,x_2,\dots, x_d$] if $k=d+1$ and else [$x_1,x_2,\dots, x_{k-1}, x_{d+1}, x_{k+1},\dots x_d$].
-
-Once one can add and delete edges he can also add and delete nodes, just by adding or deleting one by one the edges involving these nodes.
+Hence, we can focus on the two following actions: adding or deleting a
+trust edge. Adding an edge should be done carefully: a wrong choice
+could require to modify a huge number of witness and registry tables.
+Hence, the modification of $A$'s routing table is critical. The
+solution proposed is the following: when edge $d+1$ is added to $A$ of
+degree $d$, $A$ randomly choose an edge $k$ between 1 and $d+1$ and
+replace the initial routing table $(x_1,x_2,\dots, x_d)$ by the new
+routing table $(x_1,x_2,\dots x_{k-1},d+1,x_{k+1},\dots, x_d, x_k)$ if
+$k\neq d+1$ or else by the new routing table $(x_1,x_2,\dots
+,x_d,d+1)$.  When edge $d+1$ is deleted from $A$ of degree $d+1$ with
+$x_k=d+1$, the routing table becomes $(x_1,x_2,\dots, x_d)$ if $k=d+1$
+and else $(x_1,x_2,\dots, x_{k-1}, x_{d+1}, x_{k+1},\dots x_d)$. It is
+shown in the technical report that these modifications conserve the
+randomness of the routing table. Once we are able add and delete
+edges, we can similarly add and delete a node, by simply adding or
+deleting its edges one by one.
 
 %% Dealing with Offline nodes
 %%    - State the cases where a communication is required
@@ -226,16 +289,27 @@ Once one can add and delete edges he can also add and delete nodes, just by addi
 %%      - Mention that it also avoids attacks exploiting dynamism
 %%      - Mention that it also helps nodes close to a Sybil zone
 
-Moreover some nodes of the social network can be offline.
-In order to deal with it we give the cases where communications are needed: when a node wants to accept or note a new node it has to contact the intersection nodes of randome routes and when a node propagates its tables to its neighbours.
+Concerning offline nodes, we first observe that a communication is
+needed only in the following cases: when a node wants to verify a
+suspected node, in which case it has to contact the intersection
+nodes, and when a node propagates its tables to its neighbours, for
+maintainance purpose.
 
-The second case occurs when there is edges deletion or creation in the social network.
-In this case it is just possible to take days to finish to update the tables (social relations in real life make months to change and an user lifetime is arround one year in peer-to-peer networks), so we do not have to take care of offline nodes: just wait for them to be online. 
+The second case occurs when the social network is modified. However,
+social relations in real life take months to change and an user
+lifetime is in a peer-to-peer system is about a year. Therefore, a
+maintainance can take days to complete, without impacting the
+performance or reliability of the system. Therefore, we do not have to
+care about offline nodes: we simply wait for them to be online.
 
-The first case is solved using redundancy: in SybilGuard a node $V$ with degree $d$ does not performs one random route but $d$ and accepts a node $S$ only if they have more than a number $t$ of intersections between their random routes.
-Hence, it is not a problem if some intersections nodes are offline while sufficiently are online.
-
-Moreover this redundancy system helps to prevent against attacks exploiting dynamics and provide a way for nodes close to sybil zone to avoid too much sybil nodes acceptance. 
+The first case is solved thanks to \emph{redundancy}: a verifier $V$
+with degree $d$ performs $d$ random routes and accepts a node $S$ only
+if they have more than $d/2$ intersections.  Hence, it is not a
+problem if some intersections nodes are offline as soon as
+sufficiently many are online. As side effect on this redundancy system
+is that it prevents against attacks exploiting dynamics and provide a
+way for nodes close to a Sybil region to reduce their amount of
+accepted Sybil nodes.
 
 \section*{Conclusion}
 
@@ -245,12 +319,18 @@ Moreover this redundancy system helps to prevent against attacks exploiting dyna
 
 %% Lack of real-life deployment
 
-SybilGuard is a fully decentralized way to fight sybil attacks.
-Based on thorical results it provides strong properties with high probability (number and size of sybil groups bounded for $99,8\%$ of honest nodes, honest nodes accepted by at least $99,8\%$ of other honest nodes).
-The only thing to do, from now, is to deploy it over real networks.
+SybilGuard is a fully decentralized way to fight Sybil attacks.  Based
+on theorical results it provides strong properties with high
+probability (number and size of Sybil groups bounded for $99,8\%$ of
+honest nodes, honest nodes accepted by at least $99,8\%$ of other
+honest nodes).  The only thing to do, from now, is to deploy it over
+real networks.
+
+
+
+
 
 \bibliography{report}{}
-
-\bibliographystyle{plain}
+\bibliographystyle{abbrvnat}
 
 \end{document}
