@@ -321,18 +321,27 @@ accepted Sybil nodes.
 
 %% Scalable solution to fight Sybil attacks
 
+SybilGuard provides a fully decentralized mechanism to bound the
+impact of Sybil attacks. Moreover, its protocol is lightweight and non
+intrusive, both in term of network or memory usage. Hence, it can
+scale perfectly to very large networks, without sacrificing either
+performance or safety.
+
 %% Based on theoretical results
+
+It is important to notice that the bound provided by SybilGuard are
+\emph{best effort}: they hold with high-probability. However, they are
+strongly supported by a set of mathematical proofs, based on the
+widely studied properties of social networks. Therefore, SybilGuard
+offers a significant level of reliability, confirmed by several
+experimental results: the number and size of Sybil groups are bounded
+for $99,8\%$ of honest nodes while honest nodes are accepted by at
+least $99,8\%$ of other honest nodes.
 
 %% Lack of real-life deployment
 
-SybilGuard is a fully decentralized way to fight Sybil attacks.  Based
-on theorical results it provides strong properties with high
-probability (number and size of Sybil groups bounded for $99,8\%$ of
-honest nodes, honest nodes accepted by at least $99,8\%$ of other
-honest nodes).  The only thing to do, from now, is to deploy it over
-real networks.
-
-
+Finally, we are looking forward real life deployment of such system,
+in order to confirm -- or infirm -- its impressive capabilities.
 
 
 
