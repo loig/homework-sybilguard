@@ -87,18 +87,18 @@ explain how it is possible to deal with dynamic networks.
 %%      - definition 
 %%      - implication for the theoretical study
 
-SybilGuard is based on a social network, that is a graph of
-human-established trust relationships: there is an edge between two
+SybilGuard is based on a social network: a graph of
+human-established trust relationships (an edge exists between two
 entities if and only if they trust each other \emph{in real
-life}. Usually, social networks have big \emph{quotient cut}: a large
-number of nodes can not be disconnected from the rest of the graph by
+life}). Usually, social networks have big \emph{quotient cut}: a large
+number of nodes can not be disconnected from the graph by
 removing a small number of edges. However, the quotient cut between
 honest and Sybil nodes is inherently small: a small set of edges --
 termed \emph{attack edges} -- connect the Sybil nodes to the honest
 nodes, as we expect the number of trust relationships between honest
 persons and fake identities to be very low. Moreover, social networks
 are \emph{fast mixing}: after a small number of random hops ($O(\log
-n)$ hops), the resulting position is independent from the starting
+n)$), the resulting position is independent from the starting
 point.  In particular, this means that two random walks starting from
 two distinct nodes intersect with high probability.
 
@@ -203,10 +203,10 @@ indeed feasible.
 %%      - Number of entries
 %%      - Memory footprint
 
-Each node $N$ maintain a registry table for each of its edge $e$.  The
+Each node $N$ maintains a registry table for each of its edge $e$.  The
 $i^{th}$ entry of this table contains the identity of the node which
-$i^{th}$ hop arrives to $N$ by $e$.  Each node also maintain a witness
-table for each of its edge $e$.  The $i^{th}$ entry of this table
+$i^{th}$ hop arrives to $N$ by $e$.  Each node also maintains a witness
+table for each of its edges $e$.  The $i^{th}$ entry of this table
 contains the identity of the node encountered at $i^{th}$ hop along
 $e$.  These two data-structures allow $V$ to be sure that $S$ does not
 falsify its routes. $V$ checks if $S$ witness tables -- which contain
@@ -215,13 +215,11 @@ which contain the random routes arriving at the corresponding node --
 of the intersection nodes.
 
 These tables are simply built by propagation along neighbors.
-Moreover, these tables need only to contain a public key per entry (as
-well as an IP address, in the case of witness tables). Hence,
+Moreover, these tables need only to contain a public key per entry (and an IP address for witness tables). Hence,
 maintaining these tables is not so expensive, in term of communication
-as well as network usage.  For registry tables, with a one million
-nodes network, a random routes length of 2000, and using 1024-bit
-keys, the size of a single registry table is roughly 256KB.  Hence, a
-node with 10 neighbors will have to send 2.56MB of data.
+as well as network usage. In a one million
+nodes network, using random routes of length 2000, and 1024-bit
+keys, the size of a registry table is roughly 256KB.  Hence, a 10 neighbors node will have to send 2.56MB of data.
 
 %% Determining the length of random routes
 %%   - Principle
@@ -284,7 +282,7 @@ $k\neq d+1$ or else by the new routing table $(x_1,x_2,\dots
 $x_k=d+1$, the routing table becomes $(x_1,x_2,\dots, x_d)$ if $k=d+1$
 and else $(x_1,x_2,\dots, x_{k-1}, x_{d+1}, x_{k+1},\dots x_d)$. It is
 shown in the technical report that these modifications conserve the
-randomness of the routing table. Once we are able add and delete
+randomness of the routing table. Once we are able to add and delete
 edges, we can similarly add and delete a node, by simply adding or
 deleting its edges one by one.
 
@@ -303,7 +301,7 @@ maintenance purpose.
 
 The second case occurs when the social network is modified. However,
 social relations in real life take months to change and an user
-lifetime is in a peer-to-peer system is about a year. Therefore, a
+lifetime in a peer-to-peer system is about a year. Therefore, a
 maintenance can take days to complete, without impacting the
 performance or reliability of the system. Therefore, we do not have to
 care about offline nodes: we simply wait for them to be online.
@@ -312,8 +310,8 @@ The first case is solved thanks to \emph{redundancy}: a verifier $V$
 with degree $d$ performs $d$ random routes and accepts a node $S$ only
 if they have more than $d/2$ intersections.  Hence, it is not a
 problem if some intersections nodes are offline as soon as
-sufficiently many are online. As side effect on this redundancy system
-is that it prevents against attacks exploiting dynamics and provide a
+sufficiently many are online. As side effect, this redundancy system
+prevents against attacks exploiting dynamics and provides a
 way for nodes close to a Sybil region to reduce their amount of
 accepted Sybil nodes.
 
