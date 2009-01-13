@@ -58,16 +58,16 @@ fully decentralized solutions, while still providing a useful service.
 %%   - Still, useful: attenuate its supposed weaknesses
 %%   - Demonstrate some uses: give example of what can be done with the guarantees it provides
 
-Hence, SybilGuard offers to bound the number of Sybil groups
-(i.e. groups which contains the Sybil identities of the same malicious
-user) and the size of these groups.  Hence, even if this does not
-fully protect against Sybil attacks, it is sufficient to be useful.
-For example, in order to maintain replicas of a file, knowing that at
-most $g$ Sybil groups exist allow us to distribute only $g+1$ replicas
-in distinct groups.  Moreover, having a bounded number of Sybil nodes
-guarantees that, by randomly assigning the replicas, the probability of
-having a majority of replicas on honest nodes grows exponentially with
-the number of replicas.
+SybilGuard offers to bound the number of Sybil groups (i.e. groups
+which contains the Sybil identities of the same malicious user) and
+the size of these groups.  Hence, even if this does not fully protect
+against Sybil attacks, it is sufficient to be useful.  For example, in
+order to maintain replicas of a file, knowing that at most $g$ Sybil
+groups exist allow us to distribute only $g+1$ replicas in distinct
+groups.  Moreover, having a bounded number of Sybil nodes guarantees
+that, by randomly assigning the replicas, the probability of having a
+majority of replicas on honest nodes grows exponentially with the
+number of replicas.
 
 %% Our plan
 %%   - Present our plan
@@ -170,7 +170,7 @@ denote $w$ the length of random routes.  Given an edge $e$, we deduce
 from the \emph{back-traceability property} of random routes -- going
 through an edge fully determine which edge was previously traversed --
 that there is at most $w$ distinct routes going through $e$.  Hence, a
-verified will accept at most $w$ nodes by group. This has been
+verifier will accept at most $w$ nodes per group. This has been
 experimentally verified in Section 6.1 paragraph 2 (with only honest
 nodes) as well as in Section 6.2 paragraph 2 (with malicious
 users). In both case, this gave excellent results.
@@ -217,11 +217,13 @@ which contain the random routes arriving at the corresponding node --
 of the intersection nodes.
 
 These tables are simply built by propagation along neighbors.
-Moreover, these tables need only to contain a public key per entry (and an IP address for witness tables). Hence,
-maintaining these tables is not so expensive, in term of communication
-as well as network usage. In a one million
-nodes network, using random routes of length 2000, and 1024-bit
-keys, the size of a registry table is roughly 256KB.  Hence, a 10 neighbors node will have to send 2.56MB of data.
+Moreover, these tables need only to contain a public key per entry
+(and an IP address for witness tables). Hence, maintaining these
+tables is not so expensive, in term of communication as well as memory
+footprint. In a one million nodes network, using random routes of
+length 2000, and 1024-bit keys, the size of a registry table is
+roughly 256KB.  Hence, a 10 neighbors node will have to send 2.56MB of
+data.
 
 %% Determining the length of random routes
 %%   - Principle
@@ -229,7 +231,7 @@ keys, the size of a registry table is roughly 256KB.  Hence, a 10 neighbors node
 
 SybilGuard is fully decentralized, thus each node $A$ has to locally
 estimate the optimal length of its random routes.  To do so, $A$
-performs a short \emph{random walk}, e.g. less than 3 hops, reaching
+performs a short \emph{random walk}, e.g. less than 3 hops, reaching a
 node $B$. Then, $A$ and $B$ both perform a random route in order to
 determine how long these routes need to be to intersect.  After having
 obtained multiple samples, $A$ computes their median $m$ and takes
@@ -303,17 +305,17 @@ maintenance purpose.
 
 The second case occurs when the social network is modified. However,
 social relations in real life take months to change and an user
-lifetime in a peer-to-peer system is about a year. Therefore, a
-maintenance can take days to complete, without impacting the
-performance or reliability of the system. Therefore, we do not have to
-care about offline nodes: we simply wait for them to be online.
+lifetime in a peer-to-peer system is about a year. A maintenance can
+take days to complete, without impacting the performance or
+reliability of the system. Therefore, we do not have to care about
+offline nodes: we simply wait for them to be online.
 
 The first case is solved thanks to \emph{redundancy}: a verifier $V$
 with degree $d$ performs $d$ random routes and accepts a node $S$ only
 if they have more than $d/2$ intersections.  Hence, it is not a
 problem if some intersections nodes are offline as soon as
-sufficiently many are online. As side effect, this redundancy system
-prevents against attacks exploiting dynamics and provides a
+sufficiently many are online. As a side effect, this redundancy
+mechanism prevents against attacks exploiting dynamics and provides a
 way for nodes close to a Sybil region to reduce their amount of
 accepted Sybil nodes.
 
