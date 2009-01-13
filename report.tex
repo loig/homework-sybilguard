@@ -63,7 +63,7 @@ which contains the Sybil identities of the same malicious user) and
 the size of these groups.  Hence, even if this does not fully protect
 against Sybil attacks, it is sufficient to be useful.  For example, in
 order to maintain replicas of a file, knowing that at most $g$ Sybil
-groups exist allow us to distribute only $g+1$ replicas in distinct
+groups exist allows us to distribute only $g+1$ replicas in distinct
 groups.  Moreover, having a bounded number of Sybil nodes guarantees
 that, by randomly assigning the replicas, the probability of having a
 majority of replicas on honest nodes grows exponentially with the
@@ -96,7 +96,7 @@ life}). Usually, social networks have big \emph{quotient cut}: a large
 number of nodes can not be disconnected from the graph by
 removing a small number of edges. However, the quotient cut between
 honest and Sybil nodes is inherently small: a small set of edges --
-termed \emph{attack edges} -- connect the Sybil nodes to the honest
+termed \emph{attack edges} -- connects the Sybil nodes to the honest
 nodes, as we expect the number of trust relationships between honest
 persons and fake identities to be very low. Moreover, social networks
 are \emph{fast mixing}: after a small number of random hops ($O(\log
@@ -231,7 +231,7 @@ data.
 
 SybilGuard is fully decentralized, thus each node $A$ has to locally
 estimate the optimal length of its random routes.  To do so, $A$
-performs a short \emph{random walk}, e.g. less than 3 hops, reaching a
+performs a short \emph{random walk}, e.g. more than 3 hops, reaching a
 node $B$. Then, $A$ and $B$ both perform a random route in order to
 determine how long these routes need to be to intersect.  After having
 obtained multiple samples, $A$ computes their median $m$ and takes
@@ -331,7 +331,7 @@ performance or safety.
 
 %% Based on theoretical results
 
-It is important to notice that the bound provided by SybilGuard are
+It is important to notice that the bounds provided by SybilGuard are
 \emph{best effort}: they hold with high-probability. However, they are
 strongly supported by a set of mathematical proofs, based on the
 widely studied properties of social networks. Therefore, SybilGuard
